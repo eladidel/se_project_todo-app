@@ -1,10 +1,11 @@
 # Simple Todo App
 
-Give a brief description of the project here. Feel free to give it a different name.
+A Simple Todo App, Help you create a list of Things you need to-do.
 
 ## Functionality
 
-Give a more detailed explanation of the project and its functionality.
+Create To-do list with "+Add Todo" Button,
+Give it a name, you can add a due date if needed (optional).
 
 ## Technology
 
