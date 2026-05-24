@@ -12,6 +12,4 @@ Give a description of the technologies and techniques used. Pictures, GIFs, or s
 
 ## Deployment
 
-This project is deployed on GitHub Pages:
-
-- ADD LINK HERE
+This project is deployed on GitHub Pages: Here [https://eladidel.github.io/se_project_todo-app/]
