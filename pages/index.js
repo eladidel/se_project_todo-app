@@ -5,11 +5,11 @@ import Todo from "../components/Todo.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import TodoCounter from "../components/TodoCounter.js";
 
 const addTodoButton = document.querySelector(".button_action_add");
-const addTodoPopupEl = document.querySelector("#add-todo-popup");
 const addTodoForm = document.forms["add-todo-form"];
-const todosList = document.querySelector(".todos__list");
+const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 
 const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
@@ -19,39 +19,48 @@ const addTodoPopup = new PopupWithForm({
     const newDate = new Date(date);
     newDate.setMinutes(newDate.getMinutes() + newDate.getTimezoneOffset());
 
-    const values = { name, newDate, id };
-
-    section.renderItems([values]);
+    const values = { name, date: newDate, id };
+    renderTodo(values);
+    handleTotal(true);
   },
 });
+
 addTodoPopup.setEventListeners();
 
+function handleCheck(completed) {
+  todoCounter.updateCompleted(completed);
+}
+
+function handleTotal(completed) {
+  todoCounter.updateTotal(completed);
+}
+
+const generateTodo = (data) => {
+  const todo = new Todo(data, "#todo-template", handleCheck, handleTotal);
+  const todoElement = todo.getView();
+  return todoElement;
+};
+
+function renderTodo(item) {
+  const todo = generateTodo(item);
+  section.addItem(todo);
+}
+
 const section = new Section({
-  // items: initialTodos,
+  items: initialTodos,
   renderer: (item) => {
-    const todo = new Todo(item, "#todo-template");
-    const todoElement = todo.getView();
-    section.addItem(todoElement);
+    renderTodo(item);
   },
   containerSelector: ".todos__list",
 });
 
-section.renderItems(initialTodos);
+section.renderItems();
+console.log(section);
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
+
 newTodoValidator.enableValidation();
 
 addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();
 });
-
-// const generateTodo = (data) => {
-//   const todo = new Todo(data, "#todo-template");
-//   const todoElement = todo.getView();
-//   return todoElement;
-// };
-
-// function renderTodo(item) {
-//   const todo = generateTodo(item);
-//   section.addItem(todo);
-// }
