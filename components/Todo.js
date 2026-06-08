@@ -20,7 +20,7 @@ class Todo {
     });
   }
 
-  _genegenerateCheckboxElement() {
+  _generateCheckboxElement() {
     this._todoCheckboxEl = this._todoElement.querySelector(".todo__completed");
     const todoLabel = this._todoElement.querySelector(".todo__label");
     this._todoCheckboxEl.checked = this._data.completed;
@@ -37,7 +37,7 @@ class Todo {
 
     todoNameEl.textContent = this._data.name;
 
-    this._genegenerateCheckboxElement();
+    this._generateCheckboxElement();
     this._setEventListeners();
 
     const dueDate = new Date(this._data.date);

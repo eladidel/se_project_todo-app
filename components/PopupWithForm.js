@@ -1,10 +1,10 @@
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor({ popupSelector, handleFormSubmit }) {
+  constructor({ popupSelector, handleFormSubmit }, formSelector) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
-    this._popupForm = document.forms["add-todo-form"];
+    this._popupForm = document.forms[formSelector];
   }
   _getInputValues() {
     this._inputList = this._popupForm.querySelectorAll(".popup__input");

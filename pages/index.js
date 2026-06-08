@@ -11,19 +11,23 @@ const addTodoButton = document.querySelector(".button_action_add");
 const addTodoForm = document.forms["add-todo-form"];
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 
-const addTodoPopup = new PopupWithForm({
-  popupSelector: "#add-todo-popup",
-  handleFormSubmit: ({ name, date }) => {
-    const id = uuidv4();
+const addTodoPopup = new PopupWithForm(
+  {
+    popupSelector: "#add-todo-popup",
+    handleFormSubmit: ({ name, date }) => {
+      const id = uuidv4();
 
-    const newDate = new Date(date);
-    newDate.setMinutes(newDate.getMinutes() + newDate.getTimezoneOffset());
+      const newDate = new Date(date);
+      newDate.setMinutes(newDate.getMinutes() + newDate.getTimezoneOffset());
 
-    const values = { name, date: newDate, id };
-    renderTodo(values);
-    handleTotal(true);
+      const values = { name, date: newDate, id };
+      renderTodo(values);
+      handleTotal(true);
+      newTodoValidator.resetValidation();
+    },
   },
-});
+  "add-todo-form",
+);
 
 addTodoPopup.setEventListeners();
 
@@ -31,8 +35,8 @@ function handleCheck(completed) {
   todoCounter.updateCompleted(completed);
 }
 
-function handleTotal(completed) {
-  todoCounter.updateTotal(completed);
+function handleTotal(increment) {
+  todoCounter.updateTotal(increment);
 }
 
 const generateTodo = (data) => {
@@ -55,7 +59,6 @@ const section = new Section({
 });
 
 section.renderItems();
-console.log(section);
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 
